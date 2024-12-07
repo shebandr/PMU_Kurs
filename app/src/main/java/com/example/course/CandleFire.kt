@@ -21,41 +21,46 @@ class CandleFire(private val context: Context, private val radius: Float) {
 
     private val fragmentShaderCode = """
     precision mediump float;
-    uniform sampler2D uTexture;
-    uniform float uTime;
-    varying vec2 vTexCoord;
+uniform sampler2D uTexture;
+uniform float uTime;
+varying vec2 vTexCoord;
 
-    void main() {
-        // Добавляем волны по оси X и Y для текстуры
-        float waveX = 0.05 * sin(uTime * 2.0 + vTexCoord.y * 10.0);  // Волна по X
-        float waveY = 0.05 * cos(uTime * 3.0 + vTexCoord.x * 5.0);   // Волна по Y
+void main() {
+    // Add swirling effect
+    float angle = uTime * 2.0;
+    float c = cos(angle);
+    float s = sin(angle);
+    vec2 rotatedTexCoord = vec2(c * vTexCoord.x - s * vTexCoord.y, s * vTexCoord.x + c * vTexCoord.y);
 
-        // Применяем смещения к текстурным координатам
-        vec2 movedTexCoord = vTexCoord + vec2(waveX, waveY);
+    // Add wave distortion
+    float waveX = 0.1 * sin(uTime * 3.0 + rotatedTexCoord.y * 15.0);
+    float waveY = 0.1 * cos(uTime * 4.0 + rotatedTexCoord.x * 10.0);
 
-        // Получаем цвет из текстуры
-        vec4 color = texture2D(uTexture, movedTexCoord);
+    // Apply distortion
+    vec2 movedTexCoord = rotatedTexCoord + vec2(waveX, waveY);
 
-        // Влияние времени на колебания пламени (интенсивность огня)
-        float intensity = 0.6 + 0.4 * sin(uTime * 4.0 + vTexCoord.y * 15.0);
+    // Sample texture
+    vec4 color = texture2D(uTexture, movedTexCoord);
 
-        gl_FragColor = vec4(color.rgb, color.a * intensity);
-    }
+    // Adjust intensity
+    float intensity = 0.6 + 0.4 * sin(uTime * 4.0 + vTexCoord.y * 15.0) + 0.2 * cos(uTime * 6.0 + vTexCoord.x * 20.0);
+    gl_FragColor = vec4(color.rgb, color.a * intensity);
+}
 """.trimIndent()
 
     private val vertices = floatArrayOf(
-        -radius / 2,  radius * 5, 0f,   0f, 1f,   // Левый верхний угол
-        0f,            radius * 5f, 0f,   0.3f, 1f,   // Центр (для закругления)
-        radius / 2,     radius * 5, 0f,   1f, 1f,   // Правый верхний угол
-        -radius,        -radius * 5, 0f,            0f, 0f,   // Левый нижний угол (увеличено вниз)
-        radius,         -radius * 5, 0f,             1f, 0f    // Правый нижний угол (увеличено вниз)
+        -radius / 2,  radius * 4, 0f,   0f, 1f,   // Left top
+        0f,            radius * 4f, 0f,   0.5f, 1f,   // Center top
+        radius / 2,     radius * 4, 0f,   1f, 1f,   // Right top
+        (-radius * 1.2).toFloat(), -radius * 5, 0f,   0f, 0f,   // Left bottom
+        (radius * 1.2).toFloat(),  -radius * 5, 0f,   1f, 0f    // Right bottom
     )
 
     private val indices = shortArrayOf(
-        0, 1, 2, // Верхняя часть
-        3, 1, 4  // Нижняя часть
+        0, 1, 2, // Top triangle
+        0, 3, 2, // Left side
+        2, 4, 3  // Right side
     )
-
     private var program: Int = 0
     private var vertexBuffer = createFloatBuffer(vertices)
     private var indexBuffer = createShortBuffer(indices)

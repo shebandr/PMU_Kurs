@@ -22,10 +22,10 @@ class Candle(private val context: Context) {
 
     private val liquidColors: FloatArray = FloatArray(liquidVertices.size / 3 * 4).apply {
         for (i in indices step 4) {
-            this[i] = 4.6f  // Красный компонент
-            this[i + 1] = 5.3f  // Зеленый компонент
+            this[i] = 0.6f  // Красный компонент
+            this[i + 1] = 0.3f  // Зеленый компонент
             this[i + 2] = 0.9f  // Синий компонент
-            this[i + 3] = 7.9f
+            this[i + 3] = 0.9f
         }
     }
 

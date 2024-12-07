@@ -18,115 +18,153 @@ class Table(private val context: Context) {
     private var program: Int
     private var textureId: Int = 0
     private val vertices = floatArrayOf(
-        // Столешница
-        -1f, 0.1f, 1f,   // 0: передняя левая верх
-        -1f, 0.1f, -1f,  // 1: задняя левая верх
-        1f, 0.1f, -1f,   // 2: задняя правая верх
-        1f, 0.1f, 1f,    // 3: передняя правая верх
-        -1f, -0.1f, 1f,     // 4: передняя левая низ
-        -1f, -0.1f, -1f,    // 5: задняя левая низ
-        1f, -0.1f, -1f,     // 6: задняя правая низ
-        1f, -0.1f, 1f,     // 7: передняя правая низ
-
-        -0.8f, 0f, 0.8f,
-        -0.8f, 0f, 0.7f,
-        -0.7f, 0f, 0.8f,
-        -0.7f, 0f, 0.7f,
-        -0.8f, -2f, 0.8f,
-        -0.8f, -2f, 0.7f,
-        -0.7f, -2f, 0.8f,
-        -0.7f, -2f, 0.7f,
-
-        0.7f, 0f, 0.8f,
-        0.7f, 0f, 0.7f,
-        0.8f, 0f, 0.8f,
-        0.8f, 0f, 0.7f,
-        0.7f, -2f, 0.8f,
-        0.7f, -2f, 0.7f,
-        0.8f, -2f, 0.8f,
-        0.8f, -2f, 0.7f,
-
-        -0.8f, 0f, -0.7f,
-        -0.8f, 0f, -0.8f,
-        -0.7f, 0f, -0.7f,
-        -0.7f, 0f, -0.8f,
-        -0.8f, -2f, -0.7f,
-        -0.8f, -2f, -0.8f,
-        -0.7f, -2f, -0.7f,
-        -0.7f, -2f, -0.8f,
-
-        0.7f, 0f, -0.7f,
-        0.7f, 0f, -0.8f,
-        0.8f, 0f, -0.7f,
-        0.8f, 0f, -0.8f,
-        0.7f, -2f, -0.7f,
-        0.7f, -2f, -0.8f,
-        0.8f, -2f, -0.7f,
-        0.8f, -2f, -0.8f
+        // Tabletop top face
+        -1f, 0.1f, 1f,   // 0
+        -1f, 0.1f, -1f,  // 1
+        1f, 0.1f, -1f,   // 2
+        1f, 0.1f, 1f,    // 3
+        // Tabletop bottom face
+        -1f, -0.1f, 1f,  // 4
+        -1f, -0.1f, -1f, // 5
+        1f, -0.1f, -1f,  // 6
+        1f, -0.1f, 1f,   // 7
+        // Tabletop front face
+        -1f, 0.1f, 1f,   // 8
+        -1f, -0.1f, 1f,  // 9
+        1f, -0.1f, 1f,   // 10
+        1f, 0.1f, 1f,    // 11
+        // Tabletop back face
+        -1f, 0.1f, -1f,  // 12
+        -1f, -0.1f, -1f, // 13
+        1f, -0.1f, -1f,  // 14
+        1f, 0.1f, -1f,   // 15
+        // Tabletop left face
+        -1f, 0.1f, 1f,   // 16
+        -1f, -0.1f, 1f,  // 17
+        -1f, -0.1f, -1f, // 18
+        -1f, 0.1f, -1f,  // 19
+        // Tabletop right face
+        1f, 0.1f, 1f,    // 20
+        1f, -0.1f, 1f,   // 21
+        1f, -0.1f, -1f,  // 22
+        1f, 0.1f, -1f,   // 23
+        // Front left leg
+        -0.8f, 0f, 0.8f, // 24
+        -0.8f, -2f, 0.8f,// 25
+        -0.7f, -2f, 0.8f,// 26
+        -0.7f, 0f, 0.8f, // 27
+        -0.8f, 0f, 0.7f, // 28
+        -0.8f, -2f, 0.7f,// 29
+        -0.7f, -2f, 0.7f,// 30
+        -0.7f, 0f, 0.7f, // 31
+        // Front right leg
+        0.7f, 0f, 0.8f,  // 32
+        0.7f, -2f, 0.8f, // 33
+        0.8f, -2f, 0.8f, // 34
+        0.8f, 0f, 0.8f,  // 35
+        0.7f, 0f, 0.7f,  // 36
+        0.7f, -2f, 0.7f, // 37
+        0.8f, -2f, 0.7f, // 38
+        0.8f, 0f, 0.7f,  // 39
+        // Back left leg
+        -0.8f, 0f, -0.7f,// 40
+        -0.8f, -2f, -0.7f,//41
+        -0.7f, -2f, -0.7f,//42
+        -0.7f, 0f, -0.7f, //43
+        -0.8f, 0f, -0.8f, //44
+        -0.8f, -2f, -0.8f,//45
+        -0.7f, -2f, -0.8f,//46
+        -0.7f, 0f, -0.8f, //47
+        // Back right leg
+        0.7f, 0f, -0.8f,  //48
+        0.7f, -2f, -0.8f, //49
+        0.8f, -2f, -0.8f, //50
+        0.8f, 0f, -0.8f,  //51
+        0.7f, 0f, -0.7f,  //52
+        0.7f, -2f, -0.7f, //53
+        0.8f, -2f, -0.7f, //54
+        0.8f, 0f, -0.7f   //55
     )
 
     private val normals = floatArrayOf(
-        // Нормали для каждой вершины
+        // Tabletop top face
         0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f,
+        // Tabletop bottom face
+        0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f,
+        // Tabletop front face
+        0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+        // Tabletop back face
+        0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f,
+        // Tabletop left face
+        -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f,
+        // Tabletop right face
+        1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f,
+        // Front left leg
+        0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+        0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f,
+        // Front right leg
+        0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f,
+        0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f,
+        // Back left leg
+        0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f,
+        0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f,
+        // Back right leg
+        0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f,
         0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f, 0f, -1f, 0f
     )
 
+
     private val texCoords = floatArrayOf(
+        // Tabletop top face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Tabletop bottom face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Tabletop front face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Tabletop back face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Tabletop left face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Tabletop right face
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Front left leg
         0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
         0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
-
-        // Текстурные координаты для передней левой ножки
-        0f, 0f, 0f, 1f, 0.5f, 0f, 0.5f, 1f,
-
-        // Текстурные координаты для передней правой ножки
-        0f, 0f, 0f, 1f, 0.5f, 0f, 0.5f, 1f,
-
-        // Текстурные координаты для задней левой ножки
-        0f, 0f, 0f, 1f, 0.5f, 0f, 0.5f, 1f,
-
-        // Текстурные координаты для задней правой ножки
-        0f, 0f, 0f, 1f, 0.5f, 0f, 0.5f, 1f
+        // Front right leg
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Back left leg
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        // Back right leg
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f,
+        0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f
     )
-
     private val indices = shortArrayOf(
-        0, 1, 2, 0, 2, 3, // Верх столешницы
-        4, 5, 6, 4, 6, 7, // Низ столешницы
-        0, 1, 5, 0, 5, 4, // Левая грань
-        2, 3, 7, 2, 7, 6, // Правая грань
-        0, 3, 7, 0, 7, 4, // Передняя грань
-        1, 2, 6, 1, 6, 5, // Задняя грань
-
-        // Передняя левая ножка
-        8, 9, 13, 8, 13, 12, // Задняя грань
-        8, 10, 14, 8, 14, 12, // Боковая грань
-        10, 11, 15, 10, 15, 14, // Передняя грань
-        9, 11, 15, 9, 15, 13, // Боковая грань
-        8, 9, 11, 8, 11, 10, // Верхняя крышка
-        12, 13, 15, 12, 15, 14, // Нижняя крышка
-
-        // Передняя правая ножка
-        16, 17, 21, 16, 21, 20, // Задняя грань
-        16, 18, 22, 16, 22, 20, // Боковая грань
-        18, 19, 23, 18, 23, 22, // Передняя грань
-        17, 19, 23, 17, 23, 21, // Боковая грань
-        16, 17, 19, 16, 19, 18, // Верхняя крышка
-        20, 21, 23, 20, 23, 22, // Нижняя крышка
-
-        // Задняя левая ножка
-        24, 25, 29, 24, 29, 28, // Задняя грань
-        24, 26, 30, 24, 30, 28, // Боковая грань
-        26, 27, 31, 26, 31, 30, // Передняя грань
-        25, 27, 31, 25, 31, 29, // Боковая грань
-        24, 25, 27, 24, 27, 26, // Верхняя крышка
-        28, 29, 31, 28, 31, 30, // Нижняя крышка
-
-        // Задняя правая ножка
-        32, 33, 37, 32, 37, 36, // Задняя грань
-        32, 34, 38, 32, 38, 36, // Боковая грань
-        34, 35, 39, 34, 39, 38, // Передняя грань
-        33, 35, 39, 33, 39, 37, // Боковая грань
-        32, 33, 35, 32, 35, 34, // Верхняя крышка
-        36, 37, 39, 36, 39, 38  // Нижняя крышка
+        // Tabletop top face
+        0, 1, 2, 0, 2, 3,
+        // Tabletop bottom face
+        4, 5, 6, 4, 6, 7,
+        // Tabletop front face
+        8, 9, 10, 8, 10, 11,
+        // Tabletop back face
+        12, 13, 14, 12, 14, 15,
+        // Tabletop left face
+        16, 17, 18, 16, 18, 19,
+        // Tabletop right face
+        20, 21, 22, 20, 22, 23,
+        // Front left leg
+        24, 25, 26, 24, 26, 27,
+        28, 29, 30, 28, 30, 31,
+        // Front right leg
+        32, 33, 34, 32, 34, 35,
+        36, 37, 38, 36, 38, 39,
+        // Back left leg
+        40, 41, 42, 40, 42, 43,
+        44, 45, 46, 44, 46, 47,
+        // Back right leg
+        48, 49, 50, 48, 50, 51,
+        52, 53, 54, 52, 54, 55
     )
 
     init {
@@ -180,6 +218,8 @@ class Table(private val context: Context) {
         return textureIds[0]
     }
 
+
+
     fun draw(mVPMatrix: FloatArray, normalMatrix: FloatArray, lightPos: FloatArray, viewPos: FloatArray) {
         GLES20.glUseProgram(program)
 
@@ -225,55 +265,63 @@ class Table(private val context: Context) {
 
     companion object {
         private const val VERTEX_SHADER_CODE = """
-            uniform mat4 uMVPMatrix;
-            uniform mat4 uNormalMatrix;
-            uniform vec3 uLightPos;
-            uniform vec3 uViewPos;
-            attribute vec4 vPosition;
-            attribute vec2 aTexCoord;
-            attribute vec3 aNormal;
-            varying vec2 vTexCoord;
-            varying vec3 vNormal;
-            varying vec3 vLightDir;
-            varying vec3 vViewDir;
+uniform mat4 uMVPMatrix;
+uniform mat4 uNormalMatrix;
+uniform vec3 uLightPos;
+uniform vec3 uViewPos;
+attribute vec4 vPosition;
+attribute vec2 aTexCoord;
+attribute vec3 aNormal;
+varying vec2 vTexCoord;
+varying vec3 vNormal;
+varying vec3 vLightDir;
+varying vec3 vViewDir;
 
-            void main() {
-                gl_Position = uMVPMatrix * vPosition;
-                vTexCoord = aTexCoord;
-                vNormal = normalize(vec3(uNormalMatrix * vec4(aNormal, 0.0)));
-                vec3 worldPos = vec3(gl_Position);
-                vLightDir = normalize(uLightPos - worldPos);
-                vViewDir = normalize(uViewPos - worldPos);
-            }
+void main() {
+    gl_Position = uMVPMatrix * vPosition;
+    vTexCoord = aTexCoord;
+
+    // Compute normal in eye space
+    vNormal = normalize(mat3(uNormalMatrix) * aNormal); // Преобразуем нормаль с нормализацией
+
+    // Compute light direction and view direction in eye space
+    vec3 worldPos = vec3(uMVPMatrix * vPosition);
+    vLightDir = normalize(uLightPos - worldPos);
+    vViewDir = normalize(uViewPos - worldPos);
+}
+
+
         """
 
         private const val FRAGMENT_SHADER_CODE = """
-            precision mediump float;
-            varying vec2 vTexCoord;
-            varying vec3 vNormal;
-            varying vec3 vLightDir;
-            varying vec3 vViewDir;
-            uniform sampler2D uTexture;
+precision mediump float;
+varying vec2 vTexCoord;
+varying vec3 vNormal;
+varying vec3 vLightDir;
+varying vec3 vViewDir;
+uniform sampler2D uTexture;
 
-            void main() {
-                vec4 texColor = texture2D(uTexture, vTexCoord);
-                
-                // Normalize the normal vector
-                vec3 norm = normalize(vNormal);
-                
-                // Compute the diffuse and specular lighting
-                float diff = max(dot(norm, vLightDir), 0.0);
-                vec3 reflectDir = reflect(-vLightDir, norm);
-                float spec = pow(max(dot(vViewDir, reflectDir), 0.0), 32.0); // Shininess factor
+void main() {
+    vec4 texColor = texture2D(uTexture, vTexCoord);
+    
+    // Normalize the normal vector
+    vec3 norm = normalize(vNormal);
+    
+    // Compute the diffuse and specular lighting
+    float diff = max(dot(norm, normalize(vLightDir)), 0.0); // Нормализация светового направления
+    vec3 reflectDir = reflect(-normalize(vLightDir), norm); // Инвертируем световое направление для отражения
+    float spec = pow(max(dot(normalize(vViewDir), reflectDir), 0.0), 64.0); // Shininess factor
 
-                // Combine the color and lighting
-                vec3 ambient = vec3(0.1) * texColor.rgb; // Ambient light
-                vec3 diffuse = diff * texColor.rgb; // Diffuse light
-                vec3 specular = spec * vec3(1.0); // Specular light color (white)
+    // Combine the color and lighting
+    vec3 ambient = vec3(0.1) * texColor.rgb; // Ambient light
+    vec3 diffuse = diff * texColor.rgb; // Diffuse light
+    vec3 specular = spec * vec3(1.0); // Specular light color (white)
 
-                vec3 finalColor = ambient + diffuse + specular;
-                gl_FragColor = vec4(finalColor, texColor.a);
-            }
+    vec3 finalColor = ambient + diffuse + specular;
+    gl_FragColor = vec4(finalColor, texColor.a);
+}
+
+
         """
     }
 }

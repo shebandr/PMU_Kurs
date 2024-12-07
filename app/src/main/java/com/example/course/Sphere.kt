@@ -227,32 +227,33 @@ class Sphere(
         """
 
         private const val FRAGMENT_SHADER_CODE = """
-            precision mediump float;
-            varying vec2 v_TexCoord;
-            varying vec3 v_Normal;
-            varying vec3 v_LightDir;
-            varying vec3 v_ViewDir;
-            uniform sampler2D u_Texture;
+          precision mediump float;
+varying vec2 v_TexCoord;
+varying vec3 v_Normal;
+varying vec3 v_LightDir;
+varying vec3 v_ViewDir;
+uniform sampler2D u_Texture;
 
-            void main() {
-                vec4 texColor = texture2D(u_Texture, v_TexCoord);
-                
-                // Normalize the normal vector
-                vec3 norm = normalize(v_Normal);
-                
-                // Compute the diffuse and specular lighting
-                float diff = max(dot(norm, v_LightDir), 0.0);
-                vec3 reflectDir = reflect(-v_LightDir, norm);
-                float spec = pow(max(dot(v_ViewDir, reflectDir), 0.0), 32.0); // Shininess factor
+void main() {
+    vec4 texColor = texture2D(u_Texture, v_TexCoord);
+    
+    // Normalize the normal vector
+    vec3 norm = normalize(v_Normal);
+    
+    // Compute the diffuse and specular lighting
+    float diff = max(dot(norm, v_LightDir), 0.0);
+    vec3 reflectDir = reflect(v_LightDir, norm);
+    float spec = pow(max(dot(v_ViewDir, reflectDir), 0.0), 32.0); // Shininess factor
 
-                // Combine the color and lighting
-                vec3 ambient = vec3(0.1) * texColor.rgb; // Ambient light
-                vec3 diffuse = diff * texColor.rgb; // Diffuse light
-                vec3 specular = spec * vec3(1.0); // Specular light color (white)
+    // Combine the color and lighting
+    vec3 ambient = vec3(0.1) * texColor.rgb; // Ambient light
+    vec3 diffuse = diff * texColor.rgb; // Diffuse light
+    vec3 specular = spec * vec3(1.0); // Specular light color (white)
 
-                vec3 finalColor = ambient + diffuse + specular;
-                gl_FragColor = vec4(finalColor, texColor.a);
-            }
+    vec3 finalColor = ambient + diffuse + specular;
+    gl_FragColor = vec4(finalColor, texColor.a);
+}
+
         """
     }
 }
