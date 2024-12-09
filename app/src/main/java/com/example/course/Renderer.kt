@@ -27,7 +27,6 @@ class Renderer(private val context: Context) : GLSurfaceView.Renderer {
     private lateinit var watermelon: Sphere
     private lateinit var orange: Sphere
     private lateinit var cucumber: Sphere
-    private lateinit var watermelonPulp: WatermelonPulp
     private lateinit var background: Background
 
 
@@ -56,7 +55,6 @@ class Renderer(private val context: Context) : GLSurfaceView.Renderer {
 
         glass = Glass(context)
 
-        watermelonPulp = WatermelonPulp()
 
         candle = Candle(context)
         candleFire = CandleFire(context, radius = 0.035f)
@@ -64,7 +62,7 @@ class Renderer(private val context: Context) : GLSurfaceView.Renderer {
 
         watermelon = Sphere(radius = 0.8f/3)
         watermelonTexture = loadTexture(R.drawable.watermelon)
-        watermelonPulpTexture = loadTexture(R.drawable.arbux)
+
 
         orange = Sphere(radius = 0.35f/3)
         orangeTexture = loadTexture(R.drawable.orange)
